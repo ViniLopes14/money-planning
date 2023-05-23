@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<main class="form-signin w-100 m-auto">
+    <img class="mb-4" src="{{ asset('icon.png') }}" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Money Control</h1>
+
+    {{ form_start(registrationForm) }}
+        <div class="form-floating">
+            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Nome'}}) }}
+            <label for="{{ registrationForm.firstName.vars.id }}">Nome</label>
+        </div>
+        
+        <div class="form-floating">
+            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Sobrenome'}}) }}
+            <label for="{{ registrationForm.lastName.vars.id }}">Sobrenome</label>
+        </div>
+
+        <div class="form-floating">
+            {{ form_widget(registrationForm.dateOfBirth, {'attr': {'class': 'form-control', 'placeholder': 'Data de Nascimento'}}) }}
+            <label for="{{ registrationForm.dateOfBirth.vars.id }}">Data de Nascimento</label>
+        </div>
+
+        <div class="form-floating">
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+            <label for="{{ registrationForm.email.vars.id }}">Email</label>
+        </div>
+
+        <div class="form-floating">
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Senha'}}) }}
+            <label for="{{ registrationForm.plainPassword.vars.id }}">Senha</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Cadastrar</button>
+        <p class="mt-5 mb-3 text-body-secondary">© 2023</p>
+    {{ form_end(registrationForm, {render_rest: false}) }}
+</main>
+
+<style>
+    html,
+    body {
+    height: 100%;
+    }
+
+    body {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    }
+
+    .form-signin {
+    max-width: 330px;
+    padding: 15px;
+    }
+
+    .form-signin .form-floating:focus-within {
+    z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    }
+</style>
+{% endblock %}

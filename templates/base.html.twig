@@ -1,9 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+
+        <!-- Bootstrap -->
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">;
+
+        <!-- Favicons -->
+        <link href="{{ asset('assets/img/favicon.png" rel="icon') }}">
+        <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.gstatic.com" rel="preconnect">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+        <!-- Template Main CSS File -->
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -13,7 +41,200 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <!-- ======= Header ======= -->
+            <header id="header" class="header fixed-top d-flex align-items-center">
+                <div class="d-flex align-items-center justify-content-between">
+                    <a href="#" class="logo d-flex align-items-center">
+                        <img class="mb-4" src="{{ asset('icon.png') }}" alt="Logo">
+                        <span class="d-none d-lg-block">Money Control</span>
+                    </a>
+                    <i class="bi bi-list toggle-sidebar-btn"></i>
+                </div><!-- End Logo -->
+
+                <nav class="header-nav ms-auto">
+                    <ul class="d-flex align-items-center">
+                        <li class="nav-item dropdown pe-3">
+                            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                                <span class="d-none d-md-block dropdown-toggle ps-2">{{ app.user.firstName }} {{ app.user.lastName }}</span>
+                            </a><!-- End Profile Iamge Icon -->
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                                <li class="dropdown-header">
+                                    <h6>{{ app.user.firstName }} {{ app.user.lastName }}</h6>
+                                    <span>{{ app.user.email }}</span>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('app_logout') }}">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span>Sair</span>
+                                    </a>
+                                </li>
+                            </ul><!-- End Profile Dropdown Items -->
+                        </li><!-- End Profile Nav -->
+                    </ul>
+                </nav><!-- End Icons Navigation -->
+            </header><!-- End Header -->
+
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+
+                <ul class="sidebar-nav" id="sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ asset('dashboard.html') }}">
+                            <i class="bi bi-grid"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#category-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-journal-text"></i><span>Categoria</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="category-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ path('app_category_new') }}">
+                                    <i class="bi bi-circle"></i><span>Cadastro</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_category_index') }}">
+                                    <i class="bi bi-circle"></i><span>Listagem</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End Category Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#expense-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span>Despesas</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="expense-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ path('app_expense_new') }}">
+                                    <i class="bi bi-circle"></i><span>Cadastro</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_expense_index') }}">
+                                    <i class="bi bi-circle"></i><span>Listagem</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End Expense Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#revenue-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-journal-text"></i><span>Receitas</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="revenue-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ path('app_revenue_new') }}">
+                                    <i class="bi bi-circle"></i><span>Cadastro</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_revenue_index') }}">
+                                    <i class="bi bi-circle"></i><span>Listagem</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End Revenue Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#account-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-journal-text"></i><span>Contas</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="account-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ path('app_account_new') }}">
+                                    <i class="bi bi-circle"></i><span>Cadastro</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_account_index') }}">
+                                    <i class="bi bi-circle"></i><span>Listagem</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End Account Nav -->
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#type-account-nav" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-journal-text"></i><span>Tipo de Conta</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="type-account-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ path('app_type_account_new') }}">
+                                    <i class="bi bi-circle"></i><span>Cadastro</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_type_account_index') }}">
+                                    <i class="bi bi-circle"></i><span>Listagem</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End Type Account Nav -->
+                    
+                </ul>
+            </aside><!-- End Sidebar-->
+
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1>{{ title ?? '' }}</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <!--<li class="breadcrumb-item"><a href="index.html">Início</a></li>-->
+                            <li class="breadcrumb-item">{{ title ?? '' }}</li>
+                            <li class="breadcrumb-item active">{{ subtitle ?? ''}}</li>
+                        </ol>
+                    </nav>
+                </div><!-- End Page Title -->
+                
+                <section class="section">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ subtitle ?? '' }}</h5> 
+        {% endif %}
+
+                                        {% block body %}{% endblock %}
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- ======= Footer ======= -->
+            <footer id="footer" class="footer">
+                <div class="copyright">
+                    &copy; 2023 Copyright <strong><span>Money Control</span></strong>. All Rights Reserved
+                </div>
+            </footer><!-- End Footer -->
+
+            <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+            <!-- Vendor JS Files -->
+            <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
+            <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+            <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+
+            <!-- Template Main JS File -->
+            <script src="{{ asset('assets/js/main.js') }}"></script>
+        {% endif %}
     </body>
 </html>

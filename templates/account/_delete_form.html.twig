@@ -1,0 +1,22 @@
+<a class="ri-close-circle-fill" href="#" data-bs-toggle="modal" data-bs-target="#basicModal{{account.id}}"></a>
+
+<div class="modal fade" id="basicModal{{account.id}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Excluir despesa</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente excluir a despensa <b>{{ account.description }}</b> ?
+        </div>
+        <div class="modal-footer">
+            <form method="post" action="{{ path('app_account_delete', {'id': account.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                <button type="submit" class="btn btn-danger">Excluir</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->

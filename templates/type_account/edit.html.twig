@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Tipo de Conta{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'row g-3'}}) }}
+        <div class="col-md-12">
+            <div class="form-floating">
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descrição'}}) }}
+                <label for="{{ form.description.vars.id }}">Descrição</label>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-danger">
+                <a class="" style="text-decoration: none; color: #FFF" href="#" data-bs-toggle="modal" data-bs-target="#basicModal">Excluir</a>
+            </button>
+        </div>
+    {{ form_end(form, {render_rest: true}) }}
+
+    <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir tipo de conta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o tipo de conta <b>{{ type_account.description }}</b> ?
+            </div>
+            <div class="modal-footer">
+                <form method="post" action="{{ path('app_type_account_delete', {'id': type_account.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ type_account.id) }}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div><!-- End Basic Modal-->
+{% endblock %}

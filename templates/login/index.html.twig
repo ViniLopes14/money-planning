@@ -1,0 +1,78 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# ... #}
+
+{% block body %}
+    {% if error %}
+      <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+<main>
+    <div class="container">
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="#" class="logo d-flex align-items-center w-auto">
+                  <img src="{{ asset('icon.png') }}" alt="" width="72" height="57">
+                  <span class="d-none d-lg-block">Money Control</span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Acesse sua conta</h5>
+                    <p class="text-center small">Insira seu usuário e senha para acessar sua conta</p>
+                  </div>
+
+                  <form class="row g-3 needs-validation" {{ path('app_login') }} method="POST" novalidate>
+
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Usuário</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="_username" class="form-control" id="yourUsername" value="{{ last_username }}" required>
+                        <div class="invalid-feedback">Por favor, insira seu usuário.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Senha</label>
+                      <input type="password" name="_password" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Por favor, insira sua senha!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Manter logado</label>
+                      </div>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0">Não tem conta? <a href="{{ path('app_register') }}">Criar conta</a></p>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <div class="credits">
+                &copy; 2023 Copyright <strong><span>Money Control</span></strong>. All Rights Reserved
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main><!-- End #main -->
+{% endblock %}

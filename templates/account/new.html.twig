@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nova conta{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'row g-3'}}) }}
+        <div class="col-md-12">
+            <div class="form-floating">
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descrição'}}) }}
+                <label for="{{ form.description.vars.id }}">Descrição</label>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-floating">
+                {{ form_widget(form.accountType, {'attr': {'class': 'form-control', 'placeholder': 'Tipo de conta'}}) }}
+                <label for="{{ form.accountType.vars.id }}">Tipo de conta</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.balance, {'attr': {'class': 'form-control', 'placeholder': 'Saldo'}}) }}
+                <label for="{{ form.balance.vars.id }}">Saldo</label>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+    {{ form_end(form, {render_rest: true}) }}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Despesas{% endblock %}
+
+{% block body %}
+    <div class="col-sm-12">
+        <button type="button" class="btn btn-primary">
+            <a style="text-decoration: none; color: #FFF" href="{{ path('app_expense_new') }}">Nova despesa</a>
+        </button>
+    </div>
+    <!-- Table with hoverable rows -->
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Vencimento</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.id }}</td>
+                    <td>{{ expense.description }}</td>
+                    <td>{{ expense.amount|format_currency('BRL', {grouping_used: ','}) }}</td>
+                    <td>{{ expense.date ? expense.date|date('d/m/Y') : '' }}</td>
+                    <td>
+                        <a class="ri-eye-fill" href="{{ path('app_expense_show', {'id': expense.id}) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Visualizar"></a>
+                        <a class="ri-pencil-fill" href="{{ path('app_expense_edit', {'id': expense.id}) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar"></a>
+                        <!--<a class="ri-close-circle-fill" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Excluir"></a>-->
+                        {{ include('expense/_delete_form.html.twig', {'id': expense.id}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="12">Nenhum registro encontrado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- End Table with hoverable rows -->
+{% endblock %}

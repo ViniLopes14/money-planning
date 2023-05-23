@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nova Despesa{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'row g-3'}}) }}
+        <div class="col-md-8">
+            <div class="form-floating">
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descrição'}}) }}
+                <label for="{{ form.description.vars.id }}">Descrição</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.category, {'attr': {'class': 'form-control', 'placeholder': 'Categoria'}}) }}
+                <label for="{{ form.category.vars.id }}">Categoria</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.account, {'attr': {'class': 'form-control', 'placeholder': 'Conta'}}) }}
+                <label for="{{ form.account.vars.id }}">Conta</label>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.amount, {'attr': {'class': 'form-control', 'placeholder': 'Valor'}}) }}
+                <label for="{{ form.amount.vars.id }}">Valor</label>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.date, {'attr': {'class': 'form-control', 'placeholder': 'Vencimento'}}) }}
+                <label for="{{ form.date.vars.id }}">Vencimento</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.repetitionType, {'attr': {'class': 'form-control', 'placeholder': 'Repetição'}}) }}
+                <label for="{{ form.repetitionType.vars.id }}">Repetição</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.repetitionPeriodicity, {'attr': {'class': 'form-control', 'placeholder': 'Periodicidade'}}) }}
+                <label for="{{ form.repetitionPeriodicity.vars.id }}">Periodicidade</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                {{ form_widget(form.repetitionInstallment, {'attr': {'class': 'form-control', 'placeholder': 'Número de parcelas'}}) }}
+                <label for="{{ form.repetitionInstallment.vars.id }}">Número de parcelas</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-floating">
+                {{ form_widget(form.note, {'attr': {'class': 'form-control', 'placeholder': 'Anotações'}}) }}
+                <label for="{{ form.note.vars.id }}">Anotações</label>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+    {{ form_end(form, {render_rest: true}) }}
+{% endblock %}

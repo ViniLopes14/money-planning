@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="#" class="logo d-flex align-items-center w-auto">
+                                <img src="{{ asset('icon.png') }}" alt="" width="72" height="57">
+                                <span class="d-none d-lg-block">Money Control</span>
+                                </a>
+                            </div><!-- End Logo -->
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Registrar uma nova conta</h5>
+                                        <p class="text-center small">Complete os dados abaixo para registrar uma nova conta</p>
+                                    </div>
+
+                                    {{ form_start(registrationForm) }}
+                                        <div class="col-12">
+                                            <label for="{{ registrationForm.firstName.vars.id }}" class="form-label">Nome</label>
+                                            <div class="input-group has-validation">
+                                                {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                                                <div class="invalid-feedback">
+                                                    Por favor, insira seu nome.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="{{ registrationForm.lastName.vars.id }}" class="form-label">Sobrenome</label>
+                                            <div class="input-group has-validation">
+                                                {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
+                                                <div class="invalid-feedback">
+                                                    Por favor, insira seu sobrenome.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="{{ registrationForm.dateOfBirth.vars.id }}" class="form-label">Data de Nascimento</label>
+                                            <div class="input-group has-validation">
+                                                {{ form_widget(registrationForm.dateOfBirth, {'attr': {'class': 'form-control'}}) }}
+                                                <div class="invalid-feedback">
+                                                    Por favor, insira sua data de nascimento.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="{{ registrationForm.email.vars.id }}" class="form-label">Usuário</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                                                <div class="invalid-feedback">
+                                                    Por favor, insira seu usuário.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="{{ registrationForm.plainPassword.vars.id }}" class="form-label">Senha</label>
+                                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Senha'}}) }}
+                                            <div class="invalid-feedback">
+                                                Por favor, insira sua senha!
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <p class="small mb-0">Já possui uma conta? <a href="{{ path('app_login') }}">Entrar</a></p>
+                                        </div>
+                                    {{ form_end(registrationForm, {render_rest: false}) }}
+                                </div>
+                            </div>
+
+                            <div class="credits">
+                                &copy; 2023 Copyright <strong><span>Money Control</span></strong>. All Rights Reserved
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main><!-- End #main -->
+{% endblock %}

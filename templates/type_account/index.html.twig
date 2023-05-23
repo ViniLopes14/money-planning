@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipo de conta{% endblock %}
+
+{% block body %}
+    <div class="col-sm-12">
+        <button type="button" class="btn btn-primary">
+            <a style="text-decoration: none; color: #FFF" href="{{ path('app_type_account_new') }}">Novo tipo de conta</a>
+        </button>
+    </div>
+    <!-- Table with hoverable rows -->
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for type_account in type_accounts %}
+                <tr>
+                    <td>{{ type_account.id }}</td>
+                    <td>{{ type_account.description }}</td>
+                    <td>
+                        <a class="ri-eye-fill" href="{{ path('app_type_account_show', {'id': type_account.id}) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Visualizar"></a>
+                        <a class="ri-pencil-fill" href="{{ path('app_type_account_edit', {'id': type_account.id}) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Editar"></a>
+                        <!--<a class="ri-close-circle-fill" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Excluir"></a>-->
+                        {{ include('type_account/_delete_form.html.twig', {'id': type_account.id}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="12">Nenhum registro encontrado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- End Table with hoverable rows -->
+{% endblock %}

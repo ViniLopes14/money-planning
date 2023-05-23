@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categoria{% endblock %}
+
+{% block body %}
+    <div class="section profile">
+        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 label ">Descrição</div>
+                <div class="col-lg-9 col-md-8">{{ category.description }}</div>
+            </div>
+            
+            <div class="text-center">
+                <button type="button" class="btn btn-primary">
+                    <a style="text-decoration: none; color: #FFF" href="{{ path('app_category_edit', {'id': category.id}) }}">Editar</a>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <a class="" style="text-decoration: none; color: #FFF" href="#" data-bs-toggle="modal" data-bs-target="#basicModal">Excluir</a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir a categoria <b>{{ category.description }}</b> ?
+            </div>
+            <div class="modal-footer">
+                <form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div><!-- End Basic Modal-->
+{% endblock %}
+
+
+
+
+
+
