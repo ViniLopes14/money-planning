@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@money_planning_db:5432/${DATABASE_NAME}?serverVersion=11&charset=utf8
     volumes:
       - .:/var/www/html
     depends_on:
@@ -23,9 +25,12 @@ services:
 
   db:
     image: postgres:13
+    container_name: money_planning_db
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: money_planning
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
