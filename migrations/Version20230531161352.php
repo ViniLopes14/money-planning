@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230530174720 extends AbstractMigration
+final class Version20230531161352 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,7 +25,7 @@ final class Version20230530174720 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE expense_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE revenue_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE type_account_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE user_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE users_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE account (id INT NOT NULL, account_type_id INT NOT NULL, description VARCHAR(255) NOT NULL, balance DOUBLE PRECISION DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_7D3656A4C6798DB ON account (account_type_id)');
         $this->addSql('CREATE TABLE category (id INT NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
@@ -36,8 +36,8 @@ final class Version20230530174720 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_E9116C859B6B5FBA ON revenue (account_id)');
         $this->addSql('CREATE INDEX IDX_E9116C8512469DE2 ON revenue (category_id)');
         $this->addSql('CREATE TABLE type_account (id INT NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, date_of_birth TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON "user" (email)');
+        $this->addSql('CREATE TABLE users (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, date_of_birth TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9E7927C74 ON users (email)');
         $this->addSql('CREATE TABLE messenger_messages (id BIGSERIAL NOT NULL, body TEXT NOT NULL, headers TEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, available_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, delivered_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_75EA56E0FB7336F0 ON messenger_messages (queue_name)');
         $this->addSql('CREATE INDEX IDX_75EA56E0E3BD61CE ON messenger_messages (available_at)');
@@ -66,7 +66,7 @@ final class Version20230530174720 extends AbstractMigration
         $this->addSql('DROP SEQUENCE expense_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE revenue_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE type_account_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE user_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE users_id_seq CASCADE');
         $this->addSql('ALTER TABLE account DROP CONSTRAINT FK_7D3656A4C6798DB');
         $this->addSql('ALTER TABLE expense DROP CONSTRAINT FK_2D3A8DA69B6B5FBA');
         $this->addSql('ALTER TABLE expense DROP CONSTRAINT FK_2D3A8DA612469DE2');
@@ -77,7 +77,7 @@ final class Version20230530174720 extends AbstractMigration
         $this->addSql('DROP TABLE expense');
         $this->addSql('DROP TABLE revenue');
         $this->addSql('DROP TABLE type_account');
-        $this->addSql('DROP TABLE "user"');
+        $this->addSql('DROP TABLE users');
         $this->addSql('DROP TABLE messenger_messages');
     }
 }
